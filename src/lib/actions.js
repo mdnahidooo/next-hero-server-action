@@ -32,6 +32,15 @@ export const createATask = async (formData) => {
 export const newTaskAction = async (formData) => {
 
     const newTask = Object.fromEntries(formData.entries());
+
+    if (!newTask.title) {
+        return { success: false, error: 'Title is required' }
+    }
+
+    if (newTask.title.trim().length < 5) {
+        return { success: false, error: 'Title must be at least 5 characters or longer' }
+    }
+
     console.log("Add a form task: ", newTask);
 
     const res = await postTask(newTask);
